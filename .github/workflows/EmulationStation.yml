@@ -5,7 +5,7 @@ version: '{build}'
 max_jobs: 1
 
 # Build worker image (VM template)
-image: Visual Studio 2015
+image: Visual Studio 2022
 
 # clone directory
 clone_folder: c:\src\EmulationStation
@@ -16,15 +16,15 @@ clone_folder: c:\src\EmulationStation
 branches:
   except:
     - # Do not build tags that we create when we upload to GitHub Releases
-    - /^(?i:CN-Version)$/  
-    - /CN-Version.*/  
+    - /^(?i:continuous)$/
+    - /continuous.*/
 
 environment:
   _LINK_: /FORCE:MULTIPLE
   auth_token:
-    secure: nis3umdDg8zScKgsVspfLveJ8i+yP9coQH99Wt03jlhhxv97ouyPkx9dW8QqpiG/
+    secure: q3KtWd/X1C62TUAD7JCgT8DG3H0j993NZ+8U6g4XvnnnD9VyoJSzf6taqcTRF+WP
   matrix:
-#    - prepare_mode: YES
+    - prepare_mode: YES
     - prepare_mode: NO
       name: win32
       platform: x86
@@ -60,8 +60,7 @@ install:
   - 7z x freetype-2.7.tar.gz > NUL
   - 7z x freetype-2.7.tar -oc:\src\lib > NUL
   # Install curl
-  #- ps: Start-FileDownload 'https://curl.haxx.se/download/curl-7.50.3.zip' -FileName 'curl-7.50.3.zip'
-  - curl -fsS -o curl-7.50.3.zip https://curl.haxx.se/download/curl-7.50.3.zip
+  - curl -fsSL -o curl-7.50.3.zip https://curl.se/download/curl-7.50.3.zip
   - 7z x curl-7.50.3.zip -oc:\src\lib > NUL
   # Install rapidjson
   - ps: Start-FileDownload 'https://github.com/Tencent/rapidjson/archive/v1.1.0.zip' -FileName 'rapidjson-1.1.0.zip'
